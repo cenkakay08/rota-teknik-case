@@ -1,23 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SaleForm from "../components/SaleForm";
 import fire from "../firebase";
-
-let products = [];
+import "./Sales.css";
 
 const Sales = () => {
-  const [productTypes, setProductTypes] = useState([]);
-  const [productBrand, setProductBrand] = useState([]);
-  const [productModel, setProductModel] = useState([]);
+  const brandDropdownRef = useRef();
+  const modelDropdownRef = useRef();
+
+  const [products, setProducts] = useState([]);
+
+  const [productTypesOptions, setProductTypesOptions] = useState([]);
+  const [productBrandOptions, setProductBrandOptions] = useState([]);
+  const [productModelOptions, setProductModelOptions] = useState([]);
 
   const [selectedType, setSelectedType] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-  const [price, setPrice] = useState(0);
 
-  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const [showPrice, setShowPrice] = useState(false);
+  const [basket, setBasket] = useState([]);
+  const [basketTotalPrice, setBasketTotalPrice] = useState(0);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -25,104 +28,177 @@ const Sales = () => {
     const fetchData = async () => {
       const db = fire.firestore();
       const data = await db.collection("products").get();
-      products = data.docs.map((doc) => doc.data());
+      const dataArray = data.docs.map((doc) => doc.data());
+      setProducts(dataArray);
 
-      /* let abcnew = products.map((item) => item.productType); */
-
-      // copying array object
-      /* const productTypes = products.map((object) => ({ ...object })); */
-
-      setProductTypes([...new Set(products.map((item) => item.productType))]);
+      setProductTypesOptions([
+        ...new Set(dataArray.map((item) => item.productType)),
+      ]);
     };
     fetchData();
   }, []);
 
   const handleProductTypeChange = (e) => {
-    console.log(e.target.value);
     setSelectedType(e.target.value);
-    console.log(products);
-    console.log(productTypes);
     let filtered = products.filter(
-      (item) => item.productType == e.target.value
+      (item) => item.productType === e.target.value
     );
-    setProductBrand([...new Set(filtered.map((item) => item.productBrand))]);
-    console.log(productBrand);
+    brandDropdownRef.current.value = "";
+    modelDropdownRef.current.value = "";
+    setSelectedProduct(null);
+
+    setProductBrandOptions([
+      ...new Set(filtered.map((item) => item.productBrand)),
+    ]);
   };
 
   const handleProductBrandChange = (e) => {
     setSelectedBrand(e.target.value);
     let filtered = products.filter(
       (item) =>
-        item.productType == selectedType && item.productBrand == e.target.value
+        item.productType === selectedType &&
+        item.productBrand === e.target.value
     );
-    setProductModel([...new Set(filtered.map((item) => item.productModel))]);
-    console.log(filtered);
+    setSelectedProduct(null);
+    modelDropdownRef.current.value = "";
+    setProductModelOptions([
+      ...new Set(filtered.map((item) => item.productModel)),
+    ]);
   };
   const handleProductModelChange = (e) => {
-    setSelectedModel(e.target.value);
     let filtered = products.filter(
       (item) =>
-        item.productType == selectedType &&
-        item.productBrand == selectedBrand &&
-        item.productModel == e.target.value
+        item.productType === selectedType &&
+        item.productBrand === selectedBrand &&
+        item.productModel === e.target.value
     );
-    setShowPrice(true);
-    setPrice(filtered[0]?.productPrice);
+
     setSelectedProduct(filtered[0]);
-    console.log(filtered);
   };
 
   return (
     <>
       <div className="sales-page-container">
-        <div className="product-selection-container">
-          <div className="product_type"></div>
+        <h1 className="product-sales-title">Ürün Satış</h1>
+        <div className="subtitles-container">
+          <h2 className="selection-title">Ürün Katolog</h2>
+          {showForm && <h2 className="form-title">Satış Formu</h2>}
+        </div>
+
+        <div className="selection-and-form-container">
+          <div className="product-selection-container">
+            <div className="product-type-selection">
+              <span>Ürün tipi: </span>
+              <select
+                className="dropdown"
+                name="types"
+                onChange={handleProductTypeChange}
+              >
+                <option value="">Choose a type</option>
+                {productTypesOptions
+                  ? productTypesOptions.map((product, index) => (
+                      <option key={index} value={product}>
+                        {product}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
+            <div className="product-brand-selection">
+              <span>Ürün markası: </span>
+              <select
+                className="dropdown"
+                name="brands"
+                onChange={handleProductBrandChange}
+                ref={brandDropdownRef}
+              >
+                <option value="">Choose a brand</option>
+                {productBrandOptions
+                  ? productBrandOptions.map((product, index) => (
+                      <option key={index} value={product}>
+                        {product}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
+            <div className="product-model-selection">
+              <span>Ürün modeli: </span>
+              <select
+                className="dropdown"
+                name="models"
+                onChange={handleProductModelChange}
+                ref={modelDropdownRef}
+              >
+                <option value="">Choose a model</option>
+                {productModelOptions
+                  ? productModelOptions.map((product, index) => (
+                      <option key={index} value={product}>
+                        {product}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
+            {selectedProduct ? (
+              <div className="product-price-button-container">
+                <div className="product-price-info">
+                  <span>Ürünün fiyatı: </span>
+                  <span>{selectedProduct.productPrice} TL</span>
+                </div>
+                <div className="add-product-button-container">
+                  <button
+                    className="add-product-basket-button"
+                    onClick={() => {
+                      setBasket((oldArray) => [...oldArray, selectedProduct]);
+                      setBasketTotalPrice(
+                        (oldPrice) => oldPrice + selectedProduct.productPrice
+                      );
+                    }}
+                  >
+                    Sepete Ekle
+                  </button>
+                </div>
+              </div>
+            ) : null}
+            {basket.length > 0 && (
+              <div className="basket-info">
+                <div className="basket-item-count-container">
+                  <div>Sepetteki ürün sayısı: </div>
+                  <div>{basket.length}</div>
+                </div>
+                <div className="basket-total-price-container">
+                  <div>Sepetteki fiyat toplam: </div>
+                  <div>{basketTotalPrice} TL </div>
+                </div>
+                <div className="sale-form-create-button-container">
+                  <button onClick={() => setShowForm(true)}>
+                    Satış Formu Oluştur
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          {showForm && (
+            <SaleForm
+              selledProducts={basket}
+              totalPrice={basketTotalPrice}
+            ></SaleForm>
+          )}
+        </div>
+
+        <div className="link-container">
+          <Link
+            to={{
+              pathname: "/customerInfo",
+            }}
+          >
+            <h3>Müşteri Bilgileri Sayfasına Git &#8594;</h3>
+          </Link>
         </div>
       </div>
-      <select name="types" onChange={handleProductTypeChange}>
-        <option value="" selected>
-          Choose a type
-        </option>
-        {productTypes
-          ? productTypes.map((product) => (
-              <option value={product}>{product}</option>
-            ))
-          : null}
-      </select>
-      <select name="brands" onChange={handleProductBrandChange}>
-        <option value="" selected>
-          Choose a brand
-        </option>
-        {productBrand
-          ? productBrand.map((product) => (
-              <option value={product}>{product}</option>
-            ))
-          : null}
-      </select>
-      <select name="models" onChange={handleProductModelChange}>
-        <option value="" selected>
-          Choose a model
-        </option>
-        {productModel
-          ? productModel.map((product) => (
-              <option value={product}>{product}</option>
-            ))
-          : null}
-      </select>
-      {showPrice ? <div>{price}</div> : null}
-      <button onClick={() => setShowForm(true)}>Form Oluştur</button>
-      {showForm ? <SaleForm selledProduct={selectedProduct}></SaleForm> : null}
-      <Link
-        to={{
-          pathname: "/customerInfo",
-        }}
-      >
-        <button>Go to Customer Info Page</button>
-      </Link>
     </>
   );
 };
 
 export default Sales;
-
-// option üstüne onlick koymayı dene !!!!!

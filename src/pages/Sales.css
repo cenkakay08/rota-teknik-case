@@ -1,0 +1,123 @@
+.product-sales-title {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+.subtitles-container {
+  display: flex;
+}
+.selection-title {
+  padding-left: 10vw;
+  margin-bottom: 3vh;
+}
+.form-title {
+  padding-left: 42.5vw;
+  margin-bottom: 3vh;
+}
+.selection-and-form-container {
+  display: flex;
+}
+.product-selection-container {
+  padding-left: 10vw;
+  width: 50vw;
+}
+.form-container {
+  padding-left: 10vw;
+  width: 50vw;
+}
+
+.product-type-selection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.product-brand-selection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.product-model-selection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.dropdown {
+  width: 10vw;
+}
+.product-price-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.add-product-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.basket-item-count-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+
+.basket-total-price-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+
+.sale-form-create-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.customer-name-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.form-inputs {
+  width: 15vw;
+}
+.customer-adress-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+  height: 10vh;
+}
+.customer-money-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.customer-installment-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+.finish-sell-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2vh;
+  width: 25vw;
+}
+
+.link-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15vh;
+}

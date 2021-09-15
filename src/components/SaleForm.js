@@ -6,16 +6,16 @@ const SaleForm = (props) => {
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerCashGiven, setCustomerCashGiven] = useState(0);
   const [customerInstallmentQuantity, setCustomerInstallmentQuantity] =
-    useState("");
+    useState(0);
 
   const handleFormUpload = () => {
     let montlyInstallmentAmount =
-      (props.selledProduct.productPrice - customerCashGiven) /
-      customerInstallmentQuantity;
+      (props.totalPrice - customerCashGiven) / customerInstallmentQuantity;
     const db = fire.firestore();
     db.collection("sales").add({
       customerName: customerName,
       customerAddress: customerAddress,
+      selledProducts: props.selledProducts,
       cashGiven: Number(customerCashGiven),
       installments: Array.from(
         { length: customerInstallmentQuantity },
@@ -23,50 +23,61 @@ const SaleForm = (props) => {
       ),
       installmentAmount: montlyInstallmentAmount,
       startOfInstallmentDate:
-        (new Date().getMonth() + 2).toString() +
+        new Date().getDate().toString() +
+        "/" +
+        (new Date().getMonth() + 1).toString() +
         "/" +
         new Date().getFullYear().toString(),
     });
   };
 
   return (
-    <>
-      <div>
+    <div className="form-container">
+      <div className="customer-name-container">
+        <div>Müşteri Adı:</div>
         <input
+          className="form-inputs"
           value={customerName || ""}
           onChange={(e) => setCustomerName(e.target.value)}
         ></input>
       </div>
-      <div>
-        <input
+      <div className="customer-adress-container">
+        <div>Müşteri Adresi:</div>
+        <textarea
+          className="form-inputs"
           value={customerAddress || ""}
           onChange={(e) => setCustomerAddress(e.target.value)}
-        ></input>
+        ></textarea>
       </div>
-      <div>
+      <div className="customer-money-container">
+        <div>Müşteri Peşinat:</div>
         <input
+          className="form-inputs"
           defaultValue={0}
           type="number"
           min="0"
           onKeyUp={(e) => {
-            if (e.target.value > props.selledProduct.productPrice) {
-              e.target.value = props.selledProduct.productPrice;
+            if (e.target.value > props.totalPrice) {
+              e.target.value = props.totalPrice;
             }
           }}
           onChange={(e) => setCustomerCashGiven(e.target.value)}
         ></input>
       </div>
-      <div>
+      <div className="customer-installment-container">
+        <div>Taksit sayısı:</div>
         <input
+          className="form-inputs"
           defaultValue={0}
           type="number"
           min="0"
           onChange={(e) => setCustomerInstallmentQuantity(e.target.value)}
         ></input>
       </div>
-      <div>{props.selledProduct?.productBrand}</div>
-      <button onClick={handleFormUpload}>Satışı Tamamla</button>
-    </>
+      <div className="finish-sell-button-container">
+        <button onClick={handleFormUpload}>Satışı Tamamla</button>
+      </div>
+    </div>
   );
 };
 

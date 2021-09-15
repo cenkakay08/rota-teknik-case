@@ -1,0 +1,73 @@
+.customer-info-page-title {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+.sub-title-and-dropdown-container {
+  margin-left: 10vw;
+}
+.customer-name-dropdown {
+  width: 20vw;
+}
+.line-after-dropdown {
+  margin-left: 10vw;
+  margin-top: 5vh;
+}
+.sales-container {
+  margin-top: 5vh;
+}
+.sales-customer-name-container {
+  margin-left: 10vw;
+  margin-bottom: 1vh;
+}
+.sales-product-container {
+  margin-left: 10vw;
+  margin-bottom: 1vh;
+}
+.sales-installments-container {
+  margin-left: 10vw;
+  margin-bottom: 1vh;
+}
+.sales-installments-sub-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sales-installments-month-status-container {
+  margin-right: 1vw;
+  width: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: thin;
+  margin-bottom: 1vh;
+}
+
+.sales-installment-date {
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+}
+.sales-installments-checkbox {
+  margin-bottom: 1vh;
+  width: 2vw;
+  height: 3vh;
+}
+.sales-installments-title {
+  margin-bottom: 1vh;
+}
+
+.sales-installments-update-button {
+  margin-top: 1vh;
+  height: 4vh;
+}
+.line-end-sale {
+  margin-top: 1vh;
+}
+.sticky-link-to-back {
+  position: absolute;
+  top: 1vh;
+  left: 1vw;
+}

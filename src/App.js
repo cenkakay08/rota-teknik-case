@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CustomerInfo from "./pages/CustomerInfo";
 import Sales from "./pages/Sales";
-
+import "./App.css";
 const App = () => {
   return (
     <Router>
