@@ -46,8 +46,8 @@
   margin-bottom: 2vh;
   width: 25vw;
 }
-.dropdown {
-  width: 10vw;
+.form-select {
+  width: 12vw;
 }
 .product-price-info {
   display: flex;
@@ -87,7 +87,7 @@
   margin-bottom: 2vh;
   width: 25vw;
 }
-.form-inputs {
+.form-control {
   width: 15vw;
 }
 .customer-adress-container {

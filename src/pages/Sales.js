@@ -89,8 +89,9 @@ const Sales = () => {
           <div className="product-selection-container">
             <div className="product-type-selection">
               <span>Ürün tipi: </span>
+
               <select
-                className="dropdown"
+                className="form-select"
                 name="types"
                 onChange={handleProductTypeChange}
               >
@@ -107,7 +108,7 @@ const Sales = () => {
             <div className="product-brand-selection">
               <span>Ürün markası: </span>
               <select
-                className="dropdown"
+                className="form-select"
                 name="brands"
                 onChange={handleProductBrandChange}
                 ref={brandDropdownRef}
@@ -125,7 +126,7 @@ const Sales = () => {
             <div className="product-model-selection">
               <span>Ürün modeli: </span>
               <select
-                className="dropdown"
+                className="form-select"
                 name="models"
                 onChange={handleProductModelChange}
                 ref={modelDropdownRef}
@@ -148,7 +149,7 @@ const Sales = () => {
                 </div>
                 <div className="add-product-button-container">
                   <button
-                    className="add-product-basket-button"
+                    className="btn btn-primary"
                     onClick={() => {
                       setBasket((oldArray) => [...oldArray, selectedProduct]);
                       setBasketTotalPrice(
@@ -172,7 +173,10 @@ const Sales = () => {
                   <div>{basketTotalPrice} TL </div>
                 </div>
                 <div className="sale-form-create-button-container">
-                  <button onClick={() => setShowForm(true)}>
+                  <button
+                    class="btn btn-secondary"
+                    onClick={() => setShowForm(true)}
+                  >
                     Satış Formu Oluştur
                   </button>
                 </div>

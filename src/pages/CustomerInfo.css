@@ -8,7 +8,7 @@
 .sub-title-and-dropdown-container {
   margin-left: 10vw;
 }
-.customer-name-dropdown {
+#customer-name-dropdown {
   width: 20vw;
 }
 .line-after-dropdown {
@@ -50,18 +50,17 @@
   margin-bottom: 1vh;
   margin-top: 1vh;
 }
-.sales-installments-checkbox {
+#sales-installments-checkbox {
   margin-bottom: 1vh;
   width: 2vw;
-  height: 3vh;
+  height: 3.5vh;
 }
 .sales-installments-title {
   margin-bottom: 1vh;
 }
 
-.sales-installments-update-button {
+#sales-installments-update-button {
   margin-top: 1vh;
-  height: 4vh;
 }
 .line-end-sale {
   margin-top: 1vh;

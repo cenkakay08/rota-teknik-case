@@ -58,20 +58,22 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
                         .substring(3)}
                     </div>
                     <input
-                      className="sales-installments-checkbox"
+                      class="form-check-input"
+                      id="sales-installments-checkbox"
                       type="checkbox"
                       key={index}
                       onChange={(e) => handleCheckBox(e, index)}
                       checked={installmentStatus[index]}
                     ></input>
-                    <div>{sale.installmentAmount.toFixed(2)} TL</div>
+                    <div>{sale.installmentAmount.toFixed(2)}TL</div>
                   </div>
                 );
               })}
             </div>
             {sale.installments.length > 0 && (
               <button
-                className="sales-installments-update-button"
+                className="btn btn-danger"
+                id="sales-installments-update-button"
                 onClick={handleUpdate}
               >
                 Taksitleri güncelle!

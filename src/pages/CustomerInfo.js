@@ -29,7 +29,8 @@ const CustomerInfo = () => {
       <div className="sub-title-and-dropdown-container">
         <h3>Müşteri Seçimi</h3>
         <select
-          className="customer-name-dropdown"
+          className="form-select"
+          id="customer-name-dropdown"
           name="customerNames"
           onChange={handleCustomerSelection}
         >
