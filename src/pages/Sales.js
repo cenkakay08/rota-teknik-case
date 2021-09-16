@@ -95,7 +95,7 @@ const Sales = () => {
                 name="types"
                 onChange={handleProductTypeChange}
               >
-                <option value="">Choose a type</option>
+                <option value="">Ürün tipi seçin</option>
                 {productTypesOptions
                   ? productTypesOptions.map((product, index) => (
                       <option key={index} value={product}>
@@ -113,7 +113,7 @@ const Sales = () => {
                 onChange={handleProductBrandChange}
                 ref={brandDropdownRef}
               >
-                <option value="">Choose a brand</option>
+                <option value="">Ürün markası seçin</option>
                 {productBrandOptions
                   ? productBrandOptions.map((product, index) => (
                       <option key={index} value={product}>
@@ -131,7 +131,7 @@ const Sales = () => {
                 onChange={handleProductModelChange}
                 ref={modelDropdownRef}
               >
-                <option value="">Choose a model</option>
+                <option value="">Ürün modeli seçin</option>
                 {productModelOptions
                   ? productModelOptions.map((product, index) => (
                       <option key={index} value={product}>
