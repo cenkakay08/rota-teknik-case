@@ -29,8 +29,12 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
             <h4>Müşteri Adı</h4>
             <span>{sale.customerName}</span>
           </div>
+          <div id="sales-customer-cash-given-constainer">
+            <h5>Verilen Peşinat</h5>
+            <span>{sale.cashGiven} TL</span>
+          </div>
           <div className="sales-product-container">
-            <h4 className="sales-product-title">Satılan Ürünler</h4>
+            <h5 className="sales-product-title">Satılan Ürünler</h5>
             {sale.selledProducts.map((product, index) => {
               return (
                 <div key={index}>
@@ -43,7 +47,7 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
             })}
           </div>
           <div className="sales-installments-container">
-            <h4 className="sales-installments-title">Taksit Durumu</h4>
+            <h5 className="sales-installments-title">Taksit Durumu</h5>
             <div className="sales-installments-sub-container">
               {sale.installments.map((month, index) => {
                 return (
