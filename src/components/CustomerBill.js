@@ -3,22 +3,29 @@ import fire from "../firebase";
 import moment from "moment";
 
 export const CustomerBill = ({ sale, selectedCustomerName }) => {
+  // Installments array that coming from database, saved to state.
   const [installmentStatus, setInstallmentStatus] = useState(sale.installments);
+  // Created variable for store first month of installment.
+  // Moment js library used for manipulate the date.
   const firstDateofInstallment = moment(
     sale.startOfInstallmentDate,
     "DD-MM-YYYY"
   );
 
   const handleCheckBox = (e, index) => {
+    // After checkbox event triggered, installment array updated.
     const newInstallmentStatus = [...installmentStatus];
     newInstallmentStatus[index] = e.target.checked;
     setInstallmentStatus(newInstallmentStatus);
   };
   const handleUpdate = () => {
+    // After clicked the update installment button.
+    // Updated installment array upload to the database.
     const db = fire.firestore();
     db.collection("sales")
       .doc(sale.id)
       .set({ ...sale, installments: installmentStatus });
+    // Alert showed after button click.
     alert("Taksitler Güncellendi.");
   };
   return (
@@ -56,10 +63,13 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
                     className="sales-installments-month-status-container"
                   >
                     <div className="sales-installment-date">
-                      {firstDateofInstallment
-                        .add(1, "M")
-                        .format("DD-MM-YYYY")
-                        .substring(3)}
+                      {
+                        /* Added one month according to installment array length and substring to to show only month and year. */
+                        firstDateofInstallment
+                          .add(1, "M")
+                          .format("DD-MM-YYYY")
+                          .substring(3)
+                      }
                     </div>
                     <input
                       class="form-check-input"

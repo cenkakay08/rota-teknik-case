@@ -5,20 +5,26 @@ import fire from "../firebase";
 import "./CustomerInfo.css";
 
 const CustomerInfo = () => {
+  // Created state for store the all sales info.
   const [sales, setSales] = useState([]);
+  // Created state for store dropdown option values.(Customer Names)
   const [customerList, setCustomerList] = useState([]);
+  // Created state for sote selected customer name.
   const [selectedCustomerName, setSelectedCustomerName] = useState([]);
 
   const handleCustomerSelection = (e) => {
+    // Set selected customer name.
     setSelectedCustomerName(e.target.value);
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      // All sales info fetched  and saved to state.
       const db = fire.firestore();
       const data = await db.collection("sales").get();
       const dataArray = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setSales(dataArray);
+      // Dublicate items deleted for customer name dropdown options.
       setCustomerList([...new Set(dataArray.map((item) => item.customerName))]);
     };
     fetchData();

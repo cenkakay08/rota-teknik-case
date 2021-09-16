@@ -2,6 +2,7 @@ import { useState } from "react";
 import fire from "../firebase";
 
 const SaleForm = (props) => {
+  // Created states for customer info.
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerCashGiven, setCustomerCashGiven] = useState(0);
@@ -9,8 +10,11 @@ const SaleForm = (props) => {
     useState(0);
 
   const handleFormUpload = () => {
+    // Calculated montly installment amount.
     let montlyInstallmentAmount =
       (props.totalPrice - customerCashGiven) / customerInstallmentQuantity;
+
+    // Sale form saved to database.
     const db = fire.firestore();
     db.collection("sales").add({
       customerName: customerName,
@@ -29,6 +33,7 @@ const SaleForm = (props) => {
         "/" +
         new Date().getFullYear().toString(),
     });
+    // Alert after sale completed.
     alert("Satış Gerçekleşti");
   };
 
