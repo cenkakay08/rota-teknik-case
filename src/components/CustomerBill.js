@@ -72,7 +72,7 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
                       }
                     </div>
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       id="sales-installments-checkbox"
                       type="checkbox"
                       key={index}
