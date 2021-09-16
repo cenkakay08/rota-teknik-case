@@ -20,7 +20,7 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
   };
   const handleUpdate = () => {
     // After clicked the update installment button.
-    // Updated installment array upload to the database.
+    // Updated installment array updated to the database.
     const db = fire.firestore();
     db.collection("sales")
       .doc(sale.id)
