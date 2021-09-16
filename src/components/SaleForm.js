@@ -16,8 +16,11 @@ const SaleForm = (props) => {
 
     // Sale form saved to database.
     const db = fire.firestore();
+    // removed empty string from end of the customer name
+    // its sometimes causes the bug.
+    let nonEmtypStringEndOfName = customerName.trim();
     db.collection("sales").add({
-      customerName: customerName,
+      customerName: nonEmtypStringEndOfName,
       customerAddress: customerAddress,
       selledProducts: props.selledProducts,
       cashGiven: Number(customerCashGiven),
