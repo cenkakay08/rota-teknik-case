@@ -19,6 +19,7 @@ export const CustomerBill = ({ sale, selectedCustomerName }) => {
     db.collection("sales")
       .doc(sale.id)
       .set({ ...sale, installments: installmentStatus });
+    alert("Taksitler Güncellendi.");
   };
   return (
     <>

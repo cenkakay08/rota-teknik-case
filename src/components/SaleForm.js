@@ -29,6 +29,7 @@ const SaleForm = (props) => {
         "/" +
         new Date().getFullYear().toString(),
     });
+    alert("Satış Gerçekleşti");
   };
 
   return (
