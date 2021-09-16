@@ -53,6 +53,7 @@
 .sales-installment-date {
   margin-bottom: 1vh;
   margin-top: 1vh;
+  text-decoration: underline;
 }
 #sales-installments-checkbox {
   margin-bottom: 1vh;
